@@ -32,4 +32,7 @@ jobs:
         php artisan config:cache
  
     - name: Run Testsuite
-      run: vendor/bin/phpunit tests/
+      run: vendor/bin/phpunit  --coverage-clover coverage.xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
