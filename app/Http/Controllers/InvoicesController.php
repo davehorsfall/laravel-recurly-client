@@ -18,9 +18,10 @@ class InvoicesController extends Controller
         $account = $client->getAccount('code-'.$account_id);
         $invoices = $client->listAccountInvoices($account->getId(), $params);
         foreach ($invoices as $invoice) {
-        // print_r($invoice);
+            // print_r($invoice);
         // exit;
         }
+
         return view('recurly.invoices')->with('invoices', $invoices);
     }
 
@@ -62,15 +63,15 @@ class InvoicesController extends Controller
         $data = $pdf->getData();
 
         header('Content-type: application/pdf');
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Content-length: " . strlen($data));
-        
+        header('Cache-Control: no-cache');
+        header('Pragma: no-cache');
+        header('Content-length: '.strlen($data));
+
         header('Content-type: application/pdf');
         header('Accept-Language: en-US');
         header('Content-Disposition: attachment; filename="downloaded.pdf"');
 
-        die($data);
+        exit($data);
     }
 
     /**
