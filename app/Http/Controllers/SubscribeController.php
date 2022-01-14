@@ -15,6 +15,7 @@ class SubscribeController extends Controller
     {
         $client = new \Recurly\Client(env('RECURLY_PRIVATE_API_KEY'));
         $plan = $client->getPlan($id);
+
         return view('recurly.checkout')->with('plan', $plan);
     }
 

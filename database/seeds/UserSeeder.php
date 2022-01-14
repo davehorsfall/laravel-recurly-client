@@ -1,9 +1,9 @@
 <?php
 
+use App\Role;
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\User;
-use App\Role;
 
 class UserSeeder extends Seeder
 {
@@ -24,21 +24,21 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@domain.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
 
         $author = User::create([
             'name' => 'Author',
             'email' => 'author@domain.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
-        
+
         $user = User::create([
             'name' => 'User',
             'email' => 'user@domain.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
-        
+
         $admin->roles()->attach($adminRole);
         $author->roles()->attach($authorRole);
         $user->roles()->attach($userRole);

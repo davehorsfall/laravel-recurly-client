@@ -18,21 +18,20 @@ class SubscriptionsController extends Controller
 
         $params = [
             'state' => 'expired',
-            'limit' => $per_page
+            'limit' => $per_page,
         ];
         $account_id = 0;
         $client = new \Recurly\Client(env('RECURLY_PRIVATE_API_KEY'));
         $account = $client->getAccount('code-'.$account_id);
-        $subscriptions = $client->listAccountSubscriptions($account->getId(), array('limit' => 5));
-
+        $subscriptions = $client->listAccountSubscriptions($account->getId(), ['limit' => 5]);
 
 //         // Fast forward the list to the current page.
 //         $start = $page_num * $per_page;
 //         for ($n = 0; $n < $start; $n++) {
 //             $subscriptions->next();
 //         }
-// print_r($subscriptions->current());
-// exit();
+        // print_r($subscriptions->current());
+        // exit();
 //         // Populate $page_invoices with the current page.
 //         $page_end = min($start + $per_page, $subscriptions->getCount());
 //         $page_invoices = array();
@@ -43,14 +42,13 @@ class SubscriptionsController extends Controller
 //         }
 
 //         print_r($page_invoices);
-  
-  
+
 //         //print_r($subscriptions->eachPage());
-//         exit;   
+//         exit;
 
 //         foreach ($subscriptions as $subscription) {
 //         print_r($subscriptions);
-//         exit;        
+//         exit;
 
 //         }
         return view('recurly.subscriptions')->with('subscriptions', $subscriptions);

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Download;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DownloadsController extends Controller
@@ -21,6 +21,7 @@ class DownloadsController extends Controller
     public function index()
     {
         $downloads = Download::all();
+
         return view('admin.downloads.index')->with('downloads', $downloads);
     }
 
@@ -46,16 +47,16 @@ class DownloadsController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:downloads|max:255',
         ]);
-        
+
         // store
         $download = new Download;
-        $download->name      = $validated['name'];
-        $download->filename  = $validated['name'];
-        if ($download->save()){
+        $download->name = $validated['name'];
+        $download->filename = $validated['name'];
+        if ($download->save()) {
             $request->session()->flash('success', 'User has been updated');
         } else {
             $request->session()->flash('error', 'There was an error updating the user');
-        };
+        }
 
         return redirect()->route('admin.downloads.index');
     }

@@ -17,9 +17,10 @@ class PlansController extends Controller
         $client = new \Recurly\Client(env('RECURLY_PRIVATE_API_KEY'));
         $plans = $client->listPlans();
         foreach ($plans as $plan) {
-        //print_r($plan);
+            //print_r($plan);
         //exit;
         }
+
         return view('recurly.plans')->with('plans', $plans);
     }
 

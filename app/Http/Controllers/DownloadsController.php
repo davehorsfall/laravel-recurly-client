@@ -15,6 +15,7 @@ class DownloadsController extends Controller
     public function index()
     {
         $downloads = Download::all();
+
         return view('downloads')->with('downloads', $downloads);
     }
 
