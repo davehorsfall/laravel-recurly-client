@@ -23,7 +23,7 @@ jobs:
  
     - name: Install dependencies
       run: |
-        sudo apt install php-xdebug
+        apt install php-xdebug
 
     - name: Install composer dependencies
       run: |
