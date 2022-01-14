@@ -6,3 +6,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.recurly-element.recurly-element-card {
+    height: calc(1.6em + 0.75rem + 2px);
+}

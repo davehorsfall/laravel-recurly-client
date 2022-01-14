@@ -20,7 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/subscribe/{id}', 'SubscribeController@checkout')->name('subscribe');
+Route::post('/subscribe/{id}', 'SubscribeController@process')->name('subscribe');
 
-Auth::routes();
+Route::resource('plans', 'PlansController');
+Route::resource('downloads', 'DownloadsController');
+Route::resource('subscriptions', 'SubscriptionsController');
+Route::resource('invoices', 'InvoicesController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
+    Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
+    Route::resource('/downloads', 'DownloadsController', ['except' => ['show']]);
+});

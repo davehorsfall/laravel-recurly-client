@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,7 +17,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    @stack('head')
 </head>
 <body>
     <div id="app">
@@ -32,9 +34,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('plans.index') }}">{{ __('Home') }}</a>
+                        </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('downloads.index') }}">{{ __('Downloads') }}</a>
+                        </li>
+                    </ul>      
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('plans.index') }}">{{ __('Pricing') }}</a>
+                        </li>
+                    </ul>                
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -55,12 +69,17 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('subscriptions.index') }}">{{ __('Manage Subscriptions') }}</a>
+                                    <a class="dropdown-item" href="{{ route('invoices.index') }}">{{ __('Download Invoices') }}</a>
+                                    <a class="dropdown-item" href="{{ route('invoices.index') }}">{{ __('Update Billing Information') }}</a>
+                                    @can('manage-users')
+                                    <a class="dropdown-item" href="{{ route('admin.users.index') }}">{{ __('User Management') }}</a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -73,7 +92,10 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @include('partials.alerts')
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
