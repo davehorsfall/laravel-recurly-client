@@ -1,8 +1,18 @@
-php:
-  preset: laravel
-  disabled:
-    - unused_use
-  finder:
-    not-name:
-      - index.php
-      - server.php
+risky: false
+version: 8.0
+preset: laravel
+disabled:
+  - unused_use
+finder:
+  exclude:
+    - "modules"
+    - "node_modules"
+    - "nova"
+    - "nova-components"
+    - "storage"
+    - "spark"
+    - "vendor"
+  name: "*.php"
+  not-name:
+    - index.php
+    - server.php
